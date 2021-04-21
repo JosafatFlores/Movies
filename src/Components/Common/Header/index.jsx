@@ -16,8 +16,8 @@ const Header = () => {
                         <a href="/agregar">Agregar</a>
                     </li>
                 </ul>
-                <div className="search-cointainer">
-                    <input type="text" placeholder="Busca..." />
+                <div className="search-cointener">
+                    <input type="text" placeholder="Buscar..." />
                     <button>Buscar</button>
                 </div>
             </header>

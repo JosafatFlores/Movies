@@ -1,0 +1,15 @@
+@import "../../../Consts/variables.scss";
+
+.footer-cointainer{
+    width: 100%;
+    height: 5vh;
+    background-color: $primary-variant;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $primary;
+    font-size: 1.2em;
+    font-weight: 700;
+    position: absolute;
+    bottom: 0;
+}
