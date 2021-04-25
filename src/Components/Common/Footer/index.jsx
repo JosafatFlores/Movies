@@ -5,7 +5,7 @@ const Footer = () => {
     return (
         <>
             <footer className="footer-cointainer">
-                <p>Todos los derechos reservados. CronoxSoft 2020</p>
+                <p>Todos los derechos reservados. CronoxSoft 2021</p>
             </footer>
         </>
     )
