@@ -11,7 +11,6 @@
     box-shadow: 5px 5px 5px rgba($black, 0.3);
     border-radius: 10px;
     color: $white;
-
     .movie-detail-header {
         width: 90%;
         max-height: 30%;
@@ -20,7 +19,6 @@
         align-items: center;
         justify-content: flex-start;
         color: $white;
-
         img {
             margin-top: 4%;
             width: 200px;
@@ -28,7 +26,6 @@
             border-radius: 50%;
             object-fit:cover;
         }
-
         p {
             width: 100%;
             font-size: 2em;
@@ -37,7 +34,6 @@
             font-weight: 700;
         }
     }
-
     .movie-detail-body {
         width: 90%;
         display: flex;
@@ -45,7 +41,6 @@
         justify-content: space-around;
         align-items: flex-start;
         font-size: 1.3em;
-
         .movie-detail-body-left {
             width: 70%;
             text-align: justify;
@@ -62,7 +57,6 @@
             justify-content: space-around;
             align-items: center;
             width: 30%;
-
             p {
                 text-align: center;
                 color: $white;
@@ -71,14 +65,12 @@
                     font-weight: 800;
                 }
             }
-
             .is-on-cinemas {
                 font-size: 1.5em;
                 text-decoration: underline;
             }
         }
     }
-
     .movie-detail-actions {
         width: 90%;
         display: flex;
@@ -96,11 +88,9 @@
             border-radius: 5px;
             box-shadow: 5px 5px 5px rgba($black, 0.3);
         }
-
         .edit-movie {
             background-color: $accent-variant;
         }
-
         .delete-movie {
             background-color: $accent;
         }
