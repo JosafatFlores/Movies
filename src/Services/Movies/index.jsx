@@ -29,3 +29,21 @@ export const getMovie = async (movieId) => {
     }
 }
 
+
+export const createMovie = async (data) => {
+    try {
+        const response = await axios.post(
+            `${API_URL}${moviesEndPoint}/${movieId}`,
+             data
+             )
+
+        if(response.data){
+            return response.data
+        }
+    } catch (error) {
+        return {
+            hasError: true,
+            error
+        }
+    }
+}

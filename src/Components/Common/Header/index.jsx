@@ -13,7 +13,7 @@ const Header = () => {
                         <a href="/peliculas">Peliculas</a>
                     </li>
                     <li>
-                        <a href="/agregar">Agregar</a>
+                        <a href="/peliculas/crear">Crear pelicula</a>
                     </li>
                 </ul>
                 <div className="search-cointener">
