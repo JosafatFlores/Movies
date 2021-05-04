@@ -9,7 +9,7 @@ export default class MovieForm extends Component {
         super(props)
         this.state = {
             newMovie: {
-                title: '',
+                title: 'title',
                 description: '',
                 duration: '',
                 ticketPrice: '',
@@ -49,7 +49,14 @@ export default class MovieForm extends Component {
         })
     }
 
+    deleteSchedule = index => {
+        const { newMovie }  = this.state
+        newMovie.schedules.splice(index, 1)
+        this.setState({ newMovie })
+    }
+
     render() {
+
         const {
             title,
             description,
@@ -57,7 +64,8 @@ export default class MovieForm extends Component {
             ticketPrice,
             isOnCinemas,
             schedules
-        } = this.state
+        } = this.state.newMovie
+
 
         return (
             <>
@@ -122,27 +130,27 @@ export default class MovieForm extends Component {
                             </select>
                             <div className="schedules-selected-container">
                                 {
-
-                                    /*schedules.length > 0 ?
+                                    
+                                    schedules.length > 0 ?
                                         schedules.map((schedule, index) =>
-                                            <div
-                                                key={index}
-                                                className="schedule-item"
-                                            >
-                                                <p className="schedule-front">
-                                                    {schedule}
-                                                </p>
-                                                <p
-                                                    className="schedule-back"
-                                                    onClick={() => this.removeSchedule(index)}
+                                                <div
+                                                    key={index}
+                                                    className="schedule-item"
                                                 >
-                                                    Eliminar
-                                                  </p>
-                                            </div>
+                                                    <p className="schedule-front">
+                                                        {schedule}
+                                                    </p>
+                                                    <p
+                                                        className="schedule-back"
+                                                        onClick={()=>this.deleteSchedule(index)}
+                                                    >
+                                                        Eliminar
+                                                    </p>
+                                                </div>
                                         )
-                                        :*/<p>
-                                            No se han seleccionado horarios
-                                  </p>
+                                    : <p>
+                                        No se han seleccionado horarios
+                                    </p>
                                 }
                             </div>
                         </div>
