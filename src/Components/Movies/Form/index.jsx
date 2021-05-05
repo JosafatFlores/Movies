@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { createMovie } from '../../../Services'
-import { schedulesOptions } from '../../../Consts'
+import { schedulesOptions, schedulesOptions as SOptions } from '../../../Consts'
 import './index.scss'
 
 export default class MovieForm extends Component {
@@ -15,8 +15,15 @@ export default class MovieForm extends Component {
                 ticketPrice: '',
                 isOnCinemas: false,
                 schedules: []
-            }
+            },
+            scheduleOptions: []
         }
+    }
+
+    componentDidMount = () => {
+        this.setState({
+            scheduleOptions: SOptions
+        })
     }
 
     handleChange = (event) => {
@@ -41,18 +48,34 @@ export default class MovieForm extends Component {
         })
     }
 
+    filterScheduleOptions = (schedules) => {
+        let { scheduleOptions } = this.state;
+        scheduleOptions = SOptions.filter(
+            schedule => {
+                return !schedules.includes(schedule)
+            }
+        );
+        console.log(scheduleOptions)
+        return scheduleOptions;
+    }
+
     addSchedule = value => {
         const { newMovie } = this.state
         newMovie.schedules.push(value)
         this.setState({
-            newMovie
+            newMovie,
+            scheduleOptions: this.filterScheduleOptions(newMovie.schedules)
         })
     }
 
     deleteSchedule = index => {
-        const { newMovie }  = this.state
+        const { newMovie } = this.state
         newMovie.schedules.splice(index, 1)
-        this.setState({ newMovie })
+        this.setState({
+            newMovie,
+            scheduleOptions: this.filterScheduleOptions(newMovie.schedules)
+        })
+        
     }
 
     render() {
@@ -66,6 +89,9 @@ export default class MovieForm extends Component {
             schedules
         } = this.state.newMovie
 
+        const {
+            scheduleOptions
+        } = this.state
 
         return (
             <>
@@ -119,9 +145,9 @@ export default class MovieForm extends Component {
                                 name="schedules"
                                 onChange={(event) => this.addSchedule(event.target.value)}
                             >
-                                <option value="" disabled>Selecciona horarios de transmision</option>
+                                <option value="" defaultValue>Selecciona horarios de transmision</option>
                                 {
-                                    schedulesOptions.map((schedule) => (
+                                    scheduleOptions.map((schedule) => (
                                         <option value={schedule}>
                                             {schedule}
                                         </option>
@@ -130,26 +156,26 @@ export default class MovieForm extends Component {
                             </select>
                             <div className="schedules-selected-container">
                                 {
-                                    
+
                                     schedules.length > 0 ?
                                         schedules.map((schedule, index) =>
-                                                <div
-                                                    key={index}
-                                                    className="schedule-item"
+                                            <div
+                                                key={index}
+                                                className="schedule-item"
+                                            >
+                                                <p className="schedule-front">
+                                                    {schedule}
+                                                </p>
+                                                <p
+                                                    className="schedule-back"
+                                                    onClick={() => this.deleteSchedule(index)}
                                                 >
-                                                    <p className="schedule-front">
-                                                        {schedule}
+                                                    Eliminar
                                                     </p>
-                                                    <p
-                                                        className="schedule-back"
-                                                        onClick={()=>this.deleteSchedule(index)}
-                                                    >
-                                                        Eliminar
-                                                    </p>
-                                                </div>
+                                            </div>
                                         )
-                                    : <p>
-                                        No se han seleccionado horarios
+                                        : <p>
+                                            No se han seleccionado horarios
                                     </p>
                                 }
                             </div>
