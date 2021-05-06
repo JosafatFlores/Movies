@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { createMovie } from '../../../Services'
 import { schedulesOptions, schedulesOptions as SOptions } from '../../../Consts'
+import moment from 'moment';
 import './index.scss'
 
 export default class MovieForm extends Component {
@@ -76,6 +77,41 @@ export default class MovieForm extends Component {
             scheduleOptions: this.filterScheduleOptions(newMovie.schedules)
         })
         
+    }
+
+    formatScheduleTimes = schedules => {
+        debugger
+        return schedules.map(schedule => {
+            return {
+                time: moment(`${moment().format('YYYY-MM-DD')} ${schedule}`)
+                .format('YYYY-MM-DD:HH:mm:ss')
+            }
+        })
+    }
+
+    handleSubmit = async () => {
+        const { newMovie } = this.state
+
+        try {
+            newMovie.schedules = this.formatScheduleTimes(newMovie.schedules)
+            newMovie.ticketPrice = parseFloat(newMovie.ticketPrice).toFixed(2)
+            newMovie.duration = parseInt(newMovie.duration)
+
+            console.log(newMovie)
+
+            const result = await createMovie(newMovie)
+            
+            if (!result.hasError){
+                console.log('Pelicula creada con exito')
+                console.log(result)
+            }else{
+                console.log('Hubo un error')
+                console.log(result)
+            }
+        } catch (error) {
+            console.log('Hubo un error con el server    ')
+                console.log(error)
+        }
     }
 
     render() {
@@ -181,7 +217,9 @@ export default class MovieForm extends Component {
                             </div>
                         </div>
                     </div>
-                    <button>
+                    <button
+                        onClick={() => this.handleSubmit()}
+                    >
                         Crear pelicula
                     </button>
                 </div>

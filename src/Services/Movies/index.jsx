@@ -33,12 +33,16 @@ export const getMovie = async (movieId) => {
 export const createMovie = async (data) => {
     try {
         const response = await axios.post(
-            `${API_URL}${moviesEndPoint}/${data}`,
+            `${API_URL}${moviesEndPoint}`,
             data
-        )
-
+            );
         if (response.data) {
-            return response.data
+            return response.data;
+        } else {
+            return {
+                hasError: true,
+                error: 'No se pudo crear la película'
+            }
         }
     } catch (error) {
         return {
