@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { createMovie } from '../../../Services'
 import { schedulesOptions, schedulesOptions as SOptions } from '../../../Consts'
 import moment from 'moment';
+import { toast } from 'react-toastify'
 import './index.scss'
 
 export default class MovieForm extends Component {
@@ -10,7 +11,7 @@ export default class MovieForm extends Component {
         super(props)
         this.state = {
             newMovie: {
-                title: 'title',
+                title: '',
                 description: '',
                 duration: '',
                 ticketPrice: '',
@@ -102,16 +103,27 @@ export default class MovieForm extends Component {
             const result = await createMovie(newMovie)
             
             if (!result.hasError){
-                console.log('Pelicula creada con exito')
-                console.log(result)
+                toast.success('Se creo la pelicula con exito!')
+                this.resetForm()
             }else{
-                console.log('Hubo un error')
-                console.log(result)
+                toast.error('Ocurrio un error al crear la pelicular')
             }
         } catch (error) {
-            console.log('Hubo un error con el server    ')
-                console.log(error)
+            toast.error('Error del servidor')
         }
+    }
+
+    resetForm = () => {
+        this.setState({
+            newMovie: {
+                title: '',
+                description: '',
+                duration: '',
+                ticketPrice: '',
+                isOnCinemas: false,
+                schedules: []
+            }
+        })
     }
 
     render() {
@@ -137,8 +149,8 @@ export default class MovieForm extends Component {
                         <div className="input-data-container-left">
                             <input
                                 type="text"
-                                name="title"
-                                value={title}
+                                name="title" 
+                                value={title} 
                                 placeholder="Titulo de la pelicula"
                                 onChange={(event) => this.handleChange(event)}
                             />
