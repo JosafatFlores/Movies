@@ -1,7 +1,8 @@
-import { getMovies, getMovie, createMovie } from './Movies'
+import { getMovies, getMovie, createMovie, updateMovie } from './Movies'
 
 export {
     getMovies,
     getMovie,
-    createMovie
+    createMovie,
+    updateMovie
 }

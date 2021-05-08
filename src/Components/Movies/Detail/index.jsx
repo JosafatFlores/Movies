@@ -40,6 +40,11 @@ export default class MovieDetail extends Component {
         }
     }
 
+    redirectToUpdateMovie = () =>{
+        const { _id } = this.state.movie
+        this.props.history.push(`/peliculas/editar/${_id}`)
+    }
+
     render() {
         const {
             movie,
@@ -48,13 +53,13 @@ export default class MovieDetail extends Component {
             error
         } = this.state
 
-        console.log('el estado', this.state)
         return (
             <>
                 {
                     isReady ?
                         <DetailComponent
-                            movie={movie.data}
+                            movie={movie}
+                            redirectToUpdateMovie={this.redirectToUpdateMovie}
                         />
                         : hasError ?
                             <ErrorComponent
@@ -67,7 +72,10 @@ export default class MovieDetail extends Component {
     }
 }
 
-const DetailComponent = ({ movie }) => {
+const DetailComponent = ({ 
+    movie,
+    redirectToUpdateMovie
+ }) => {
     return (
         <>
             <div className="movie-detail-container">
@@ -109,7 +117,10 @@ const DetailComponent = ({ movie }) => {
                     </div>
                 </div>
                 <div className="movie-detail-actions">
-                    <button className="action-button edit-movie">
+                    <button 
+                        className="action-button edit-movie"
+                        onClick={() => redirectToUpdateMovie()}
+                    >
                         Editar pelicula
                     </button>
                     <button className="action-button delete-movie">
