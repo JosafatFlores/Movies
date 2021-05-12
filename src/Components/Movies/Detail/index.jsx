@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { getMovie } from '../../../Services'
+import { getMovie, deleteMovie } from '../../../Services'
 import placeholderImg from '../../../Assets/placeholder.png'
 import './index.scss'
+import { toast } from 'react-toastify'
 
 export default class MovieDetail extends Component {
     constructor(props) {
@@ -45,6 +46,23 @@ export default class MovieDetail extends Component {
         this.props.history.push(`/peliculas/editar/${_id}`)
     }
 
+    deleteMovie = async () => {
+        if (window.confirm('¿Deseas eliminar esta pelicula?')){
+            try {
+                const movieId = this.state.movie._id
+                const response = await deleteMovie(movieId)
+
+                if (!response.hasError) {
+                    toast.info('Pelicula eliminada con exito')
+                } else {
+                    toast.error('Ha ocurrido un error al elimnar la pelicula')
+                }
+            } catch (error) {
+                toast.error('Ha ocurrido un error al elimnar la pelicula')
+            }
+        }
+    }
+
     render() {
         const {
             movie,
@@ -60,6 +78,7 @@ export default class MovieDetail extends Component {
                         <DetailComponent
                             movie={movie}
                             redirectToUpdateMovie={this.redirectToUpdateMovie}
+                            deleteMovie={this.deleteMovie}
                         />
                         : hasError ?
                             <ErrorComponent
@@ -74,7 +93,8 @@ export default class MovieDetail extends Component {
 
 const DetailComponent = ({ 
     movie,
-    redirectToUpdateMovie
+    redirectToUpdateMovie,
+    deleteMovie
  }) => {
     return (
         <>
@@ -123,7 +143,10 @@ const DetailComponent = ({
                     >
                         Editar pelicula
                     </button>
-                    <button className="action-button delete-movie">
+                    <button 
+                        className="action-button delete-movie"
+                        onClick={() => deleteMovie()}
+                    >
                         Eliminar pelicula
                     </button>
                 </div>

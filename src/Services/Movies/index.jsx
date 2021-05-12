@@ -69,3 +69,20 @@ export const updateMovie = async (movieId, data) => {
         }
     }
 }
+
+export const deleteMovie = async (movieId) => {
+    try {
+        const response = await axios.delete(
+            `${API_URL}${moviesEndPoint}/${movieId}`
+        )
+
+        if(response.data){
+            return response.data
+        }
+    } catch (error) {
+        return {
+            hasError: true,
+            error
+        }
+    }
+}
